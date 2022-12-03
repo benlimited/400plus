@@ -130,7 +130,7 @@ $(PROJECT).BIN: $(PROJECT).arm.elf
 
 $(PROJECT).arm.elf: $(OBJS) link.script
 	@$(ECHO) -e $(BOLD)[LINK]:$(NORM) $@
-	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LDFLAGS)
 
 %.o: %.c
 	@$(ECHO) -e $(BOLD)[C]:$(NORM) $<

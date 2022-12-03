@@ -157,6 +157,11 @@ void stoupper(char *s) {
 	}
 }
 
+/**
+ * @brief get the wall time
+ * 
+ * @return int milliseconds since the first call to timestamp()
+ */
 int timestamp() {
 	static long long base = 0;
 	struct timespec now_ts;

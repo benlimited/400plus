@@ -26,15 +26,15 @@
 
 typedef enum {
 	SCRIPT_NONE,
-	SCRIPT_EXT_AEB,
-	SCRIPT_ISO_AEB,
-	SCRIPT_EFL_AEB,
-	SCRIPT_APT_AEB,
-	SCRIPT_INTERVAL,
-	SCRIPT_BRAMP,
-	SCRIPT_WAVE,
-	SCRIPT_TIMER,
-	SCRIPT_LONG_EXP,
+	SCRIPT_EXT_AEB,  // Extended auto-bracketing
+	SCRIPT_ISO_AEB,  // ISO auto-bracketing
+	SCRIPT_EFL_AEB,  // Flash auto-bracketing
+	SCRIPT_APT_AEB,  // Aperture auto-bracketing
+	SCRIPT_INTERVAL, // Intervalometer
+	SCRIPT_BRAMP,    // Bulb ramping
+	SCRIPT_WAVE,     // Handwaving
+	SCRIPT_TIMER,    // Self timer
+	SCRIPT_LONG_EXP, // Long exposure
 	SCRIPT_COUNT,
 	SCRIPT_FIRST = 0,
 	SCRIPT_LAST  = SCRIPT_COUNT - 1

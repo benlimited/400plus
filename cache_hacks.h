@@ -88,12 +88,11 @@
 #define CACHE_SEGMENT_ADDRMASK(t)   (CACHE_SEGMENT_BITMASK(t)<<CACHE_SEGMENT_TAGOFFSET(t))
 
 extern        uint32_t cache_locked (void);
-extern inline void     cache_lock   (void);
+extern        void     cache_lock   (void);
 extern        void     cache_unlock (void);
 
 extern uint32_t    cache_fake    (uint32_t address, uint32_t data, uint32_t type);
 
 extern void        flush_caches  (void);
-extern inline void clean_d_cache (void);
 
 #endif

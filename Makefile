@@ -2,7 +2,7 @@ PROJECT := AUTOEXEC
 ADDRESS := 0x7E0000
 
 ifndef CROSS_COMPILE
-	CROSS_COMPILE := arm-elf-
+	CROSS_COMPILE := arm-none-eabi-
 endif
 
 ifdef RELEASE
@@ -28,7 +28,6 @@ COMMON_FLAGS := \
 	-fno-strict-aliasing              \
 	-mfloat-abi=soft                  \
 	-msoft-float                      \
-	-mfpu=fpa                         \
 
 	#-nostdinc                         \
 	#-fno-builtin-puts                 \

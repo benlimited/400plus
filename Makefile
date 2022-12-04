@@ -143,7 +143,7 @@ $(PROJECT).arm.elf: $(OBJS) link.script
 clean:
 	@$(ECHO) -e $(BOLD)[CLEAN]$(NORM)
 	rm -f $(OBJS) $(DEPS)
-	rm -f $(PROJECT).arm.elf $(PROJECT).BIN
+	rm -f $(PROJECT).arm.elf $(PROJECT).BIN autoexec.map
 
 languages.ini: languages.h languages/*.ini
 	@$(ECHO) -e $(BOLD)[I18N]:$(NORM) $@

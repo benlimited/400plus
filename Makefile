@@ -30,23 +30,6 @@ COMMON_FLAGS := \
 	-mfloat-abi=soft                  \
 	-msoft-float                      \
 
-	#-nostdinc                         \
-	#-fno-builtin-puts                 \
-	#-fno-builtin-sprintf              \
-	#-fno-builtin-bzero                \
-	#-fno-builtin-memset               \
-	#-fno-builtin-printf               \
-
-	#-mlong-calls or -fPIC will fix the rellocation problems with the linker on 64bit toolchain
-	#-mlong-calls                      \
-
-	#-fomit-frame-pointer \
-	#-fno-strict-aliasing \
-
-	# alex had issues with struct alignment (gcc-4.6.0, -Os) in ML
-	# this fixes them, keep it here in case we need it
-	#-mstructure-size-boundary=32 \
-
 CC     := $(CROSS_COMPILE)gcc
 CFLAGS += $(COMMON_FLAGS)              \
 	$(D_FLAGS)                         \
@@ -60,11 +43,6 @@ CFLAGS += $(COMMON_FLAGS)              \
 	-Wno-char-subscripts               \
 	-fdata-sections                    \
 	-ffunction-sections                \
-
-	#-fomit-frame-pointer  \
-	#-fno-strict-aliasing  \
-	#-Wno-unused-parameter \
-	#-Wno-unused-function  \
 
 AS      := $(CROSS_COMPILE)as
 ASFLAGS := $(COMMON_FLAGS)

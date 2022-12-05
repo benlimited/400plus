@@ -1,5 +1,15 @@
 # 400plus
+
 A firmware hack for the Canon 400D / XTi digital camera
+
+Forked from [here](https://github.com/400plus/400plus) by @bentorkington 2022-12-03. Looks like the original authors have moved on from this project (👋 thanks for all you've done, great work!) and the world from the EOS 400D. 
+
+I've recently inherited such a camera in pretty good condition with a good battery and low shutter count, and I'd like to use it as an expermental second camera, particularly for shooting time lapses and doing stuff more risky than I'd be happy doing with my main camera.
+
+## Changes from the original project, December 2022
+
+* get building with current versions of the ARM toolchain
+* keep the build dir clean by keeping make deps out of the root directory, from [here](http://make.mad-scientist.net/papers/advanced-auto-dependency-generation/)
 
 ## About
 

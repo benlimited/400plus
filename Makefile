@@ -1,5 +1,7 @@
 PROJECT := AUTOEXEC
 ADDRESS := 0x7E0000
+DEPDIR := .deps
+DEPFLAGS = -Wp,-MT,$@ -Wp,-MMD,$(patsubst %.o,$(DEPDIR)/%.d,$(@))
 
 ifndef CROSS_COMPILE
 	CROSS_COMPILE := arm-none-eabi-
@@ -49,8 +51,7 @@ COMMON_FLAGS := \
 CC     := $(CROSS_COMPILE)gcc
 CFLAGS += $(COMMON_FLAGS)              \
 	$(D_FLAGS)                         \
-	-Wp,-MMD,$(patsubst %.o,.%.d,$(@)) \
-	-Wp,-MT,$@                         \
+	$(DEPFLAGS)                        \
 	-Os                                \
 	-nostdinc                          \
 	-Ivxworks                          \
@@ -81,7 +82,7 @@ S_OBJS := $(S_SRCS:.S=.o)
 C_OBJS := $(C_SRCS:.c=.o)
 
 OBJS  := $(S_OBJS) $(C_OBJS)
-DEPS  := $(patsubst %.o,.%.d,$(C_OBJS))
+DEPFILES := $(C_SRCS:%.c=$(DEPDIR)/%.d)
 
 ECHO := "/bin/echo"
 
@@ -132,7 +133,7 @@ $(PROJECT).arm.elf: $(OBJS) link.script
 	@$(ECHO) -e $(BOLD)[LINK]:$(NORM) $@
 	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LDFLAGS)
 
-%.o: %.c
+%.o: %.c $(DEPDIR)/%.d | $(DEPDIR)
 	@$(ECHO) -e $(BOLD)[C]:$(NORM) $<
 	@$(CC) $(CFLAGS) -c $<
 
@@ -141,9 +142,9 @@ $(PROJECT).arm.elf: $(OBJS) link.script
 	@$(CC) $(ASFLAGS) -c -o $@ $<
 
 clean:
-	@$(ECHO) -e $(BOLD)[CLEAN]$(NORM)
-	rm -f $(OBJS) $(DEPS)
-	rm -f $(PROJECT).arm.elf $(PROJECT).BIN autoexec.map
+	@echo [CLEAN]
+	rm -f $(OBJS) $(DEPFILES)
+	rm -f AUTOEXEC.arm.elf AUTOEXEC.BIN autoexec.map
 
 languages.ini: languages.h languages/*.ini
 	@$(ECHO) -e $(BOLD)[I18N]:$(NORM) $@
@@ -153,5 +154,8 @@ languages/new_lang.ini: languages.h
 	@$(ECHO) -e $(BOLD)[I18N]:$(NORM) $@
 	@./languages/lang_tool.pl -q -f languages -l languages.h -g
 
--include .*.d
+$(DEPDIR): ; @mkdir -p $@
 
+$(DEPFILES): 
+
+include $(wildcard $(DEPFILES))

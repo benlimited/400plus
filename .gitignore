@@ -1,7 +1,6 @@
 /AUTOEXEC.*
 /autoexec.map
 /languages.ini
-/..d
-.*
+/.deps
 *.o
 .DS_Store

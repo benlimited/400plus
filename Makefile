@@ -83,20 +83,13 @@ C_OBJS := $(C_SRCS:.c=.o)
 OBJS  := $(S_OBJS) $(C_OBJS)
 DEPFILES := $(C_SRCS:%.c=$(DEPDIR)/%.d)
 
-ECHO := "/bin/echo"
-
-ifdef TERM
-	BOLD := "\033[1m"
-	NORM := "\033[0m"
-endif
-
 install: all
 ifdef INSTALL_HOST
-	@$(ECHO) -e $(BOLD)[UPLOAD]:AUTOEXEC.BIN$(NORM)
+	@echo [UPLOAD]:AUTOEXEC.BIN
 	@curl -s http://$(INSTALL_HOST)/upload.cgi?UPDIR=/                                | fgrep -io SUCCESS
 	@curl -s -F file=@AUTOEXEC.BIN -F submit=submit http://$(INSTALL_HOST)/upload.cgi | fgrep -io SUCCESS
 	
-	@$(ECHO) -e $(BOLD)[UPLOAD]:languages.ini$(NORM)
+	@echo [UPLOAD]:languages.ini
 	@curl -s http://$(INSTALL_HOST)/upload.cgi?UPDIR=/400PLUS                          | fgrep -io SUCCESS
 	@curl -s -F file=@languages.ini -F submit=submit http://$(INSTALL_HOST)/upload.cgi | fgrep -io SUCCESS
 endif
@@ -107,11 +100,11 @@ ifdef INSTALL_PATH
 endif
 
 all: AUTOEXEC.BIN languages.ini languages/new_lang.ini
-	@$(ECHO) -e $(BOLD)[ALL]$(NORM)
+	@echo [ALL]
 	@ls -l AUTOEXEC.BIN
 
 release: clean
-	@$(ECHO) -e $(BOLD)[RELEASE]$(NORM)
+	@echo [RELEASE]
 	@git checkout-index -a --prefix $(RELNAME)/src/
 	@zip -9 -r $(RELNAME).src.zip $(RELNAME)
 
@@ -120,24 +113,24 @@ release: clean
 	@cp $(RELNAME)/src/AUTOEXEC.BIN $(RELNAME)/src/languages.ini $(RELNAME)/bin/
 	@zip -9 -r $(RELNAME).bin.zip $(RELNAME)/bin/
 
-	@$(ECHO) -e $(BOLD)[ZIP]$(NORM)
+	@echo [ZIP]
 	@rm -rf $(RELNAME)
 	@ls -l $(RELNAME).src.zip $(RELNAME).bin.zip
 
 AUTOEXEC.BIN: AUTOEXEC.arm.elf
-	@$(ECHO) -e $(BOLD)[OBJCOPY]:$(NORM) $@
+	@echo [OBJCOPY]: $@
 	$(OBJCOPY) -O binary AUTOEXEC.arm.elf AUTOEXEC.BIN
 
 AUTOEXEC.arm.elf: $(OBJS) link.script
-	@$(ECHO) -e $(BOLD)[LINK]:$(NORM) $@
+	@echo [LINK]: $@
 	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LDFLAGS)
 
 %.o: %.c $(DEPDIR)/%.d | $(DEPDIR)
-	@$(ECHO) -e $(BOLD)[C]:$(NORM) $<
+	@echo [C]: $<
 	@$(CC) $(CFLAGS) -c $<
 
 %.o: %.S
-	@$(ECHO) -e $(BOLD)[ASM]:$(NORM) $<
+	@echo [ASM]: $<
 	@$(CC) $(ASFLAGS) -c -o $@ $<
 
 clean:
@@ -146,11 +139,11 @@ clean:
 	rm -f AUTOEXEC.arm.elf AUTOEXEC.BIN autoexec.map
 
 languages.ini: languages.h languages/*.ini
-	@$(ECHO) -e $(BOLD)[I18N]:$(NORM) $@
+	@echo [I18N]: $@
 	@./languages/lang_tool.pl -q -f languages -l languages.h -o languages.ini
 
 languages/new_lang.ini: languages.h
-	@$(ECHO) -e $(BOLD)[I18N]:$(NORM) $@
+	@echo [I18N]: $@
 	@./languages/lang_tool.pl -q -f languages -l languages.h -g
 
 $(DEPDIR): ; @mkdir -p $@

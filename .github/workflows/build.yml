@@ -1,0 +1,19 @@
+name: Build on Ubuntu
+on: 
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Install gcc-arm-none-eabi 
+        run: |
+          sudo apt-get update
+          sudo apt-get install gcc-arm-none-eabi
+      - name: Build project
+        run: make

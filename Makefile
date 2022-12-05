@@ -1,4 +1,3 @@
-PROJECT := AUTOEXEC
 ADDRESS := 0x7E0000
 DEPDIR := .deps
 DEPFLAGS = -Wp,-MT,$@ -Wp,-MMD,$(patsubst %.o,$(DEPDIR)/%.d,$(@))
@@ -107,7 +106,7 @@ ifdef INSTALL_PATH
 	@umount $(INSTALL_PATH)
 endif
 
-all: $(PROJECT).BIN languages.ini languages/new_lang.ini
+all: AUTOEXEC.BIN languages.ini languages/new_lang.ini
 	@$(ECHO) -e $(BOLD)[ALL]$(NORM)
 	@ls -l AUTOEXEC.BIN
 
@@ -125,11 +124,11 @@ release: clean
 	@rm -rf $(RELNAME)
 	@ls -l $(RELNAME).src.zip $(RELNAME).bin.zip
 
-$(PROJECT).BIN: $(PROJECT).arm.elf
+AUTOEXEC.BIN: AUTOEXEC.arm.elf
 	@$(ECHO) -e $(BOLD)[OBJCOPY]:$(NORM) $@
-	$(OBJCOPY) -O binary $(PROJECT).arm.elf $(PROJECT).BIN
+	$(OBJCOPY) -O binary AUTOEXEC.arm.elf AUTOEXEC.BIN
 
-$(PROJECT).arm.elf: $(OBJS) link.script
+AUTOEXEC.arm.elf: $(OBJS) link.script
 	@$(ECHO) -e $(BOLD)[LINK]:$(NORM) $@
 	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LDFLAGS)
 

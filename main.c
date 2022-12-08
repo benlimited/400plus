@@ -78,7 +78,11 @@ int main(void) {
 	return 0;
 }
 
-// 0xAF: check the devinfo for more details on why this routine is needed
+/**
+ * @brief relocate 128k bytes from 0x80000 to 0x7e000
+ * @note we are loaded at 0x80000, but the original firmware will eventually overwrite memory here, so we relocate our image somewhere else
+ * 
+ */
 void hack_relocate(void) {
 	int i;
 
@@ -295,10 +299,11 @@ void start_up() {
 #endif
 }
 
-/*
- * Look for a "400PLUS" folder, and create it if it does not exist
+/**
+ * @brief Look for a "400PLUS" folder, and create it if it does not exist
+ * 
+ * @return int TRUE if the folder exists
  */
-
 int check_create_folder(void)
 {
     DIR *dirp;

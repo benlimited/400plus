@@ -3,7 +3,10 @@
 
 #include "vxworks.h"
 
-/* We do not really care what is inside DIR */
+/**
+ * @brief a filesystem directory handle
+ * @note nothing is definied here as we only use it as an opaque object
+ */
 typedef struct {} DIR;
 
 struct dirent {

@@ -191,6 +191,9 @@ chain_t
 	chain_actions_face     = {button_actions_face, &settings.use_dpad}
 ;
 
+// this wastes about a kB on the unused entries, probably better to make this a switch
+// if space gets tight
+
 chain_t *button_chains[GUIMODE_COUNT] = {
 	[GUIMODE_OLC]       = &chain_actions_main,
 	[GUIMODE_OFF]       = &chain_actions_main,

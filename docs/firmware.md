@@ -21,3 +21,24 @@ I can't find much about this other than that it supposedly flips some boot flag 
 ## Original Canon firmware for 400D
 
 Good luck, not hosted on Canon's websites any more, best shot is from war3z sites 😞
+
+## Preparing the CF Card
+
+1. Find the device, e.g. with `fdisk -l`
+2. Card must be formatted as FAT12 or FAT16 for cards up to 2GB, or FAT32 if 4GB or larger
+
+### FAT12/16
+
+```sh
+dev=/dev/sdX1
+echo EOS_DEVELOP | sudo dd of="$dev" bs=1 seek=43 count=11
+echo BOOTDISK | sudo dd of="$dev" bs=1 seek=64 count=8
+```
+
+### FAT32
+
+```sh
+dev=/dev/sdX1
+echo EOS_DEVELOP | sudo dd of="$dev" bs=1 seek=71 count=11
+echo BOOTDISK | sudo dd of="$dev" bs=1 seek=92 count=8
+```

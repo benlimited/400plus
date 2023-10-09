@@ -18,9 +18,20 @@ I can't find much about this other than that it supposedly flips some boot flag 
 
 [on encryption in FIR files](https://chdk.setepontos.com/index.php/topic,134.msg2461.html#msg2461)
 
-## Original Canon firmware for 400D
+## Original Canon firmware for EOS Digital Rebel XTi / EOS 400D Digital cameras
 
-Good luck, not hosted on Canon's websites any more, best shot is from war3z sites 😞
+Unfortunately, the official firmware download page on Canon's website has disappeared 😞, but
+it's still possible to download the firmware via [Wayback Machine](https://archive.org).
+
+Self-extracting (.exe) archive for Windows platform (seems like MacOS .dmg was not archived)
+is still available on the [archived snapshot of the Canon website](https://web.archive.org/web/20080507103407/http://web.canon.jp/imaging/eosdigital3/e4kr3_firmware-e.html).
+
+In order to extract the firmware file (`e4kr3111.fir`), the known options currently
+running the .exe either on Windows or via Wine.
+
+As an alternative, it's possible to exract archive contents using 7z, but the firmware file
+itself seems to be compressed using [StuffIt](https://en.wikipedia.org/wiki/StuffIt) which does
+not have any up-to-date open source decompresseors available.
 
 ## Preparing the CF Card
 
